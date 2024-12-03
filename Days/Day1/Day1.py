@@ -21,6 +21,3 @@ def main() -> None:
     print("Part 2:")
     right_counter = Counter(right_list)
     print(sum(item * right_counter[item] for item in left_list))
-
-if __name__ == "__main__":
-    main()

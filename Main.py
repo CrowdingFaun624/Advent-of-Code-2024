@@ -10,7 +10,7 @@ def main() -> None:
         days.append(day_name)
         importlib.import_module(f".{day_name}", f"Days.{day_name}")
     selected_day = input("Day: ")
-    sys.modules[f"Days.{day_name}.{day_name}"].main()
+    sys.modules[f"Days.Day{selected_day}.Day{selected_day}"].main()
 
 if __name__ == "__main__":
     main()
