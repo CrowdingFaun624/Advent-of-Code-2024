@@ -1,6 +1,11 @@
 from pathlib import Path
 
 
+def get_path(day:int, path:str) -> Path:
+    root_path = Path("./Days/")
+    day_path = root_path.joinpath(f"Day{day}")
+    return day_path.joinpath(path)
+
 def get_input_path(day:int, name:str|None, suffix:str|None="txt") -> Path:
     '''
     Returns the Path of an input file.
