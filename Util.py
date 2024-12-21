@@ -1,5 +1,42 @@
 from pathlib import Path
+from typing import Callable
 
+from typing_extensions import Self
+
+
+class Grid[T]():
+
+    @classmethod
+    def new_filled(cls, fill_item:Callable[[],T], size:tuple[int,int]) -> Self:
+        return cls([[fill_item() for x in range(size[0])] for y in range(size[1])], size)
+
+    def __init__(self, grid:list[list[T]], size:tuple[int,int]) -> None:
+        self.grid = grid
+        self.size = size
+    
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__} {self.size[0]}×{self.size[1]}>"
+
+    def __getitem__(self, position:tuple[int,int]) -> T:
+        x, y = position
+        if x >= 0 and x < self.size[0] and y >= 0 and y < self.size[1]:
+            return self.grid[y][x]
+        else:
+            raise KeyError(f"Position {position} is out of bounds!")
+    
+    def get[D](self, position:tuple[int,int], default:D=None) -> T|D:
+        x, y = position
+        if x >= 0 and x < self.size[0] and y >= 0 and y < self.size[1]:
+            return self.grid[y][x]
+        else:
+            return default
+    
+    def __setitem__(self, position:tuple[int,int], value:T) -> None:
+        x, y = position
+        if x >= 0 and x < self.size[0] and y >= 0 and y < self.size[1]:
+            self.grid[y][x] = value
+        else:
+            raise KeyError(f"Position {position} is out of bounds!")
 
 def get_path(day:int, path:str) -> Path:
     root_path = Path("./Days/")
