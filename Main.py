@@ -9,6 +9,7 @@ def main() -> None:
         day_name = day_path.name
         days.append(day_name)
         importlib.import_module(f".{day_name}", f"Days.{day_name}")
+    days.sort(key=lambda day: int(day[3:]))
     selected_day = input("Day: ")
     if selected_day == "*":
         for selected_day in days:
